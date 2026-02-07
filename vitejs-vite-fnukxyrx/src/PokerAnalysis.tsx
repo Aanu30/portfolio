@@ -265,6 +265,9 @@ const GITHUB_RAW = 'https://raw.githubusercontent.com/Aanu30/pokeranalysis/main/
 
 export default function PokerAnalysis({ onBack }: { onBack: () => void }) {
   const [activeTab, setActiveTab] = useState('overview');
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   const stats = {
     totalSessions: 36,
