@@ -643,7 +643,7 @@ export default function App() {
       <Experience />
       <Edge />
       <Projects />
-      <Insights onPokerClick={() => setShowPoker(true)} />
+      <Insights onPokerClick={() => { window.scrollTo(0, 0); setShowPoker(true); }} />
       <Proof />
       <References />
       <Contact />
