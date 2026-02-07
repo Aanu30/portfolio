@@ -1,4 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+if (showPoker) {
+  document.documentElement.scrollTop = 0;
+  return <PokerAnalysis onBack={() => setShowPoker(false)} />;
+}import { useState, useEffect, useRef } from 'react';
 import PokerAnalysis from './PokerAnalysis';
 
 const AnimatedBackground = () => {
