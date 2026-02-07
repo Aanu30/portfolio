@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 const AnimatedBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -217,7 +217,7 @@ const RawDataSection = () => {
       {isOpen && (
         <div className="mt-6">
           <div className="flex justify-between items-center mb-4">
-            <p className="text-sm text-gray-400">All 36 sessions from October 2024 - February 2026</p>
+            <p className="text-sm text-gray-400">All 36 sessions from October 2025 - February 2026</p>
             <a 
               href="https://github.com/Aanu30/pokeranalysis/blob/main/pokeranalysis/data/sessions.csv"
               target="_blank"
@@ -265,9 +265,12 @@ const GITHUB_RAW = 'https://raw.githubusercontent.com/Aanu30/pokeranalysis/main/
 
 export default function PokerAnalysis({ onBack }: { onBack: () => void }) {
   const [activeTab, setActiveTab] = useState('overview');
-  useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
 
   const stats = {
     totalSessions: 36,
@@ -333,7 +336,7 @@ export default function PokerAnalysis({ onBack }: { onBack: () => void }) {
             <GlassPanel className="p-6 text-center">
               <div className="text-3xl font-bold mb-1 text-white">{stats.totalSessions}</div>
               <div className="text-sm text-gray-400">Sessions</div>
-              <div className="text-xs mt-1 text-gray-600">Oct 2024 - Feb 2026</div>
+              <div className="text-xs mt-1 text-gray-600">Oct 2025 - Feb 2026</div>
             </GlassPanel>
             <GlassPanel className="p-6 text-center">
               <div className="text-3xl font-bold mb-1 text-white">£{stats.totalProfit}</div>
