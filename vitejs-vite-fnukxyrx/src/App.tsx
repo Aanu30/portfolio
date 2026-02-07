@@ -1,7 +1,4 @@
-if (showPoker) {
-  document.documentElement.scrollTop = 0;
-  return <PokerAnalysis onBack={() => setShowPoker(false)} />;
-}import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PokerAnalysis from './PokerAnalysis';
 
 const AnimatedBackground = () => {
@@ -633,8 +630,9 @@ export default function App() {
   }, []);
 
   if (showPoker) {
-    return <PokerAnalysis onBack={() => setShowPoker(false)} />;
-  }
+  document.documentElement.scrollTop = 0;
+  return <PokerAnalysis onBack={() => setShowPoker(false)} />;
+}
 
   return (
     <div className="min-h-screen bg-transparent overflow-x-hidden">
