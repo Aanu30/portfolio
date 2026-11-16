@@ -1,11 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-level="plain">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aarin Bhatt | Quantitative Trading</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Aarin Bhatt · Quant trading and research</title>
+    <meta
+      name="description"
+      content="Final-year Data Science at LSE. Pricing and trading models you can try for yourself: market making, a research paper, poker statistics and more."
+    />
+    <meta name="theme-color" content="#08090B" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://aarinbhatt.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aarinbhatt.com/" />
+    <meta property="og:title" content="Aarin Bhatt · Turning uncertainty into edge" />
+    <meta
+      property="og:description"
+      content="Final-year Data Science at LSE. Pricing and trading models you can try for yourself."
+    />
+    <meta property="og:image" content="https://aarinbhatt.com/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      try {
+        if (localStorage.getItem('ab-level') === 'quant') document.documentElement.dataset.level = 'quant'
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
