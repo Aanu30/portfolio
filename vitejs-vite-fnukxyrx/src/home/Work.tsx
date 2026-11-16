@@ -12,7 +12,6 @@ type Stat = { big: ReactNode; text: string }
 
 type ChapterProps = {
   id: string
-  rail: string
   no: string
   meta: string[]
   title: string
@@ -24,9 +23,9 @@ type ChapterProps = {
   foot: ReactNode
 }
 
-function Chapter({ id, rail, no, meta, title, sub, plain, quant, stats, children, foot }: ChapterProps) {
+function Chapter({ id, no, meta, title, sub, plain, quant, stats, children, foot }: ChapterProps) {
   return (
-    <article className="chapter" id={id} data-rail={rail}>
+    <article className="chapter" id={id}>
       <div className="ch-meta mono rv">
         <b>{no}</b>
         {meta.map((m) => (
@@ -75,15 +74,22 @@ function Preview({ draw }: { draw: (el: HTMLElement) => void }) {
   return <div className="pv" ref={ref} />
 }
 
+/** What the rail lists, in page order. Each id is the id of a chapter in Work below. */
+const RAIL = [
+  { id: 'spread', label: 'Spread' },
+  { id: 'paper', label: 'Paper' },
+  { id: 'ghosts', label: 'Ghosts' },
+  { id: 'poker', label: 'Poker' },
+  { id: 'more', label: 'More' },
+]
+
 /** The small index on the left edge that tracks which project you are reading. */
 function Rail() {
-  const [items, setItems] = useState<{ id: string; label: string }[]>([])
   const [current, setCurrent] = useState(0)
   const [on, setOn] = useState(false)
 
   useEffect(() => {
-    const els = [...document.querySelectorAll<HTMLElement>('[data-rail]')]
-    setItems(els.map((el) => ({ id: el.id, label: el.dataset.rail ?? '' })))
+    const els = RAIL.map((item) => document.getElementById(item.id))
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
@@ -91,7 +97,9 @@ function Rail() {
         }),
       { rootMargin: '-45% 0px -45% 0px' },
     )
-    els.forEach((el) => observer.observe(el))
+    els.forEach((el) => {
+      if (el) observer.observe(el)
+    })
     const onScroll = () => {
       const work = document.getElementById('work')?.getBoundingClientRect()
       setOn(!!work && work.top < window.innerHeight * 0.5 && work.bottom > window.innerHeight * 0.5)
@@ -106,7 +114,7 @@ function Rail() {
 
   return (
     <nav className={'rail' + (on ? ' on' : '')} aria-label="Projects">
-      {items.map((item, i) => (
+      {RAIL.map((item, i) => (
         <a key={item.id} href={'#' + item.id} className={i === current ? 'cur' : ''}>
           {String(i + 1).padStart(2, '0')} {item.label}
         </a>
@@ -133,7 +141,6 @@ export default function Work() {
 
         <Chapter
           id="spread"
-          rail="Spread"
           no="01"
           meta={['Nov 2026', 'Junction hackathon, Finland', '48 hours']}
           title="I ran a delivery company for a week."
@@ -162,7 +169,6 @@ export default function Work() {
 
         <Chapter
           id="paper"
-          rail="Paper"
           no="02"
           meta={['Sep to Nov 2026', 'Working paper', 'Written at London Strategic Edge']}
           title="A dealer's prices should hold steady,"
@@ -203,7 +209,6 @@ export default function Work() {
 
         <Chapter
           id="ghosts"
-          rail="Ghosts"
           no="03"
           meta={['Nov 2026', 'Junction hackathon, Finland', '3rd place, MariaDB track']}
           title="381,459 sentences Wikipedia deleted."
@@ -235,7 +240,6 @@ export default function Work() {
 
         <Chapter
           id="poker"
-          rail="Poker"
           no="04"
           meta={['2025 to 2026', 'Personal project', 'Python']}
           title="36 nights of poker. Up £274.86."
@@ -268,7 +272,7 @@ export default function Work() {
           <Demo title="replay my 36 nights" note="my real session results" mount={mountPokerReplay} />
         </Chapter>
 
-        <div className="chapter" id="more" data-rail="More">
+        <div className="chapter" id="more">
           <div className="ch-meta mono rv">
             <b>05 to 07</b>
             <span>Each has its own page and demo</span>

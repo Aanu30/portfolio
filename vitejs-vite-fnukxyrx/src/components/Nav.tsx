@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import type { Location } from 'react-router-dom'
 import { useLevel } from '../lib/hooks'
 
 const LINKS = [
@@ -14,8 +15,11 @@ const LINKS = [
 export default function Nav() {
   const [level, setLevel] = useLevel()
   const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
   const location = useLocation()
+  // The phone menu remembers where it was opened and counts as open only while you are still
+  // there, so it closes whenever the page or section changes.
+  const [openedAt, setOpenedAt] = useState<Location | null>(null)
+  const open = openedAt === location
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -23,9 +27,6 @@ export default function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  // Close the phone menu whenever the page or section changes.
-  useEffect(() => setOpen(false), [location])
 
   return (
     <header className={'nav' + (scrolled || open ? ' scrolled' : '')}>
@@ -59,7 +60,7 @@ export default function Nav() {
             className="menu-btn"
             aria-expanded={open}
             aria-label={open ? 'Close menu' : 'Open menu'}
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => setOpenedAt(open ? null : location)}
           >
             <span />
             <span />
