@@ -26,6 +26,9 @@ const page = (load: () => Promise<{ default: ComponentType }>) => async () => ({
 const router = createBrowserRouter([
   {
     element: <Layout />,
+    // Rendered for the instant a project page's code is still loading on a direct visit.
+    // Left empty on purpose: the dark page background is already showing.
+    hydrateFallbackElement: <></>,
     children: [
       { index: true, element: <Home /> },
       { path: 'spread', lazy: page(() => import('./pages/SpreadPage')) },
