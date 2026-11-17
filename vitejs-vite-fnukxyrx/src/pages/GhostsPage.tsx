@@ -6,13 +6,13 @@ export default function GhostsPage() {
   return (
     <Page
       title="Ghosts of Wikipedia"
-      meta={['03', 'Nov 2026', 'Junction hackathon, Espoo, Finland', '3rd place, MariaDB track']}
+      meta={['03', 'Nov 2026', "Junction 2026, Europe's largest hackathon", '3rd place, MariaDB track']}
       heading="381,459 sentences Wikipedia deleted."
       sub="We brought them back."
       plain="Wikipedia keeps every version of every article but only shows you the latest. For MariaDB's challenge at Junction, our team rebuilt 862,076 versions of 19,742 Finnish history articles and recovered every sentence that was later removed. I led the analysis and the pitch. What we found: contested history gets rewritten far faster."
       quant="MariaDB system-versioned tables written with Wikipedia's real revision timestamps, so FOR SYSTEM_TIME AS OF replays any day. Sentence lifetimes come from diffing consecutive revisions, with reverts inside 24 hours filtered out. Kaplan-Meier median survival with live sentences censored (0.8 years against 18.6) and Fightin' Words log-odds on 2,646 deleted against 1,007 surviving sentences. I led the analysis and the pitch; teammates built the app."
       stats={[
-        { big: <>3rd <small>place</small></>, text: "in MariaDB's Wikipedia Through Time challenge, at one of Europe's largest hackathons" },
+        { big: <>3rd <small>place</small></>, text: "in MariaDB's Wikipedia Through Time challenge at Junction 2026, Europe's largest hackathon" },
         { big: '381,459', text: 'deleted sentences recovered from 862,076 versions of 19,742 articles' },
         { big: '23×', text: 'faster rewriting on contested history: a half-life of 0.8 years against 18.6' },
         { big: <>12 <small>of 12</small></>, text: 'language editions of the Winter War article had their busiest month for readers right after Russia invaded Ukraine' },

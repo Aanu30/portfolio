@@ -45,7 +45,7 @@ export function Lessons() {
   return (
     <section id="lessons" className="sec">
       <div className="wrap">
-        <Intro no="02" label="Lessons" title="Three things the data taught me" sub="in one weekend." />
+        <Intro no="05" label="Lessons" title="Three things the data taught me" sub="in one weekend." />
         <div className="lessons rv">
           {LESSONS.map((l) => (
             <article key={l.label}>
@@ -191,11 +191,31 @@ export function Experience() {
   )
 }
 
-// ---------------------------------------------------------------- scoreboard
+// ---------------------------------------------------------------- achievements
+
+/** Junction 2026 gets its own block above the table: two challenges at the same event. */
+const JUNCTION = [
+  {
+    label: 'First challenge',
+    big: 'Top 10%',
+    name: 'Bahn Express Spread challenge',
+    text: 'A simulated car-delivery company to run for a week. I designed the pricing model and priced it like a market maker.',
+    href: '#spread',
+  },
+  {
+    label: 'Second challenge',
+    big: (
+      <>
+        3rd <small>place</small>
+      </>
+    ),
+    name: "MariaDB's Wikipedia Through Time challenge",
+    text: 'Our team brought back 381,459 sentences that Wikipedia had deleted. I led the analysis and the pitch.',
+    href: '#ghosts',
+  },
+]
 
 const RESULTS: { year: string; name: string; detail: string; result: string; estimathon?: boolean }[] = [
-  { year: '2026', name: 'Junction 2026', detail: "MariaDB's Wikipedia Through Time challenge", result: '3rd place' },
-  { year: '2026', name: 'Junction 2026', detail: 'Bahn Express Spread challenge', result: 'Top 11% of 228 teams' },
   { year: '2026', name: 'Global Market Making Games', detail: 'LSE qualifier, Estimathon round', result: '1st of 100+', estimathon: true },
   { year: '2026', name: 'IMC Prosperity', detail: 'Algorithmic trading competition', result: 'Top 5% of about 13,000' },
   { year: '2026', name: 'AI Chessathon', detail: 'Chess engine', result: 'Top 10%' },
@@ -209,12 +229,43 @@ const RESULTS: { year: string; name: string; detail: string; result: string; est
   { year: '2023', name: 'Royal Institution', detail: 'Public talk on AI and physical work', result: 'Selected from 50' },
 ]
 
-export function Scoreboard() {
+const TIMELINE: { year: string; items: string[]; now?: boolean }[] = [
+  { year: '2022', items: ['GCSEs: four 9s and four 8s'] },
+  { year: '2023', items: ['Data science internship at BP', 'UKMT Gold, then Senior Kangaroo Merit', 'Royal Institution talk on AI'] },
+  { year: '2024', items: ['A* A* A, Further Maths self-taught', 'BlackRock: 1st of 8 in a Bloomberg simulation', 'Started Data Science at LSE'] },
+  { year: '2025', items: ['Cazenove: 1st in a trading simulation', 'First poker final table', 'Head of Sewa, LSE Hindu Society'] },
+  { year: '2026', now: true, items: ['IMC Prosperity: top 5%', 'Exactimo, then London Strategic Edge', 'Estimathon: 1st of 100+', 'Junction: top 10% in one challenge, 3rd place in another'] },
+  { year: '2027', items: ['Graduating from LSE', 'Open to internships and graduate roles'] },
+]
+
+export function Achievements() {
   const [open, setOpen] = useState(false)
   return (
-    <section id="scoreboard" className="sec">
+    <section id="achievements" className="sec">
       <div className="wrap">
-        <Intro no="04" label="Scoreboard" title="Competitions and results," sub="with the denominators." />
+        <Intro no="02" label="Achievements" title="Competitions and results," sub="with the denominators." />
+
+        <article className="feature rv">
+          <div className="ch-meta mono">
+            <b>Junction 2026</b>
+            <span>Espoo, Finland · Nov 2026 · 48 hours</span>
+          </div>
+          <h3>
+            Europe's largest hackathon. <em>2,000+ participants.</em>
+          </h3>
+          <div className="feature-results">
+            {JUNCTION.map((j) => (
+              <div key={j.name}>
+                <span className="mono">{j.label}</span>
+                <b>{j.big}</b>
+                <strong>{j.name}</strong>
+                <p>{j.text}</p>
+                <a href={j.href}>See the project →</a>
+              </div>
+            ))}
+          </div>
+        </article>
+
         <div className="sb rv">
           {RESULTS.map((r) => (
             <div className="sb-row" key={r.name + r.detail}>
@@ -235,6 +286,20 @@ export function Scoreboard() {
             </div>
           ))}
         </div>
+
+        <h3 className="sub rv">Year by year</h3>
+        <div className="tl rv" aria-label="Timeline">
+          {TIMELINE.map((t) => (
+            <div key={t.year} className={t.now ? 'now' : undefined}>
+              <b>{t.year}</b>
+              <ul>
+                {t.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -249,15 +314,6 @@ const FACTS = [
   ['£800', 'raised for the NHS by running a half-marathon'],
   ['3rd XI', 'LSE cricket, and table tennis for the 2nd team'],
   ['2', 'poker final tables: top 5 of 100+ and top 5 of 150+'],
-]
-
-const TIMELINE: { year: string; items: string[]; now?: boolean }[] = [
-  { year: '2022', items: ['GCSEs: four 9s and four 8s'] },
-  { year: '2023', items: ['Data science internship at BP', 'UKMT Gold, then Senior Kangaroo Merit', 'Royal Institution talk on AI'] },
-  { year: '2024', items: ['A* A* A, Further Maths self-taught', 'BlackRock: 1st of 8 in a Bloomberg simulation', 'Started Data Science at LSE'] },
-  { year: '2025', items: ['Cazenove: 1st in a trading simulation', 'First poker final table', 'Head of Sewa, LSE Hindu Society'] },
-  { year: '2026', now: true, items: ['IMC Prosperity: top 5%', 'Exactimo, then London Strategic Edge', 'Estimathon: 1st of 100+', 'Junction: 3rd in one track, top 11% in another'] },
-  { year: '2027', items: ['Graduating from LSE', 'Open to internships and graduate roles'] },
 ]
 
 const SOCIETIES = [
@@ -275,14 +331,14 @@ export function About() {
         <div className="about-grid">
           <div className="about-text rv">
             <span className="mono">
-              <b>05</b> &nbsp;About
+              <b>01</b> &nbsp;About
             </span>
             <h2 className="big">
               I think in distributions, <em>not point estimates.</em>
             </h2>
             <p>
-              I'm in my final year of <strong>BSc Data Science at LSE</strong>, predicted First Class Honours. The
-              course takes 4.3% of applicants.
+              I study <strong>BSc Data Science at LSE</strong>, a course that takes 4.3% of applicants, and I'm
+              predicted First Class Honours.
             </p>
             <p>
               My school didn't offer Further Maths, so <strong>I taught it to myself</strong> and got an A*.
@@ -300,11 +356,9 @@ export function About() {
               ))}
             </div>
           </div>
-          <div className="about-side rv">
-            <div className="portrait">
-              <img src="/portrait.jpg" alt="Aarin Bhatt" width="1095" height="1436" loading="lazy" />
-            </div>
-            <div className="glance">
+          {/* Beside the text on a laptop, under it on a phone: quick facts, then where he studied. */}
+          <div className="about-side">
+            <div className="glance rv">
               {FACTS.map(([big, text]) => (
                 <div key={text}>
                   <b>{big}</b>
@@ -312,39 +366,25 @@ export function About() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="tl rv" aria-label="Timeline">
-          {TIMELINE.map((t) => (
-            <div key={t.year} className={t.now ? 'now' : undefined}>
-              <b>{t.year}</b>
-              <ul>
-                {t.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+            <div className="edu rv">
+              <article>
+                <span className="mono">2024 to 2027</span>
+                <h3>London School of Economics</h3>
+                <p>
+                  BSc Data Science. Stochastic Processes, Probability and Distribution Theory, Bayesian Inference,
+                  Machine Learning, Partial Differential Equations, Algorithms and Data Structures.
+                </p>
+              </article>
+              <article>
+                <span className="mono">2022 to 2024</span>
+                <h3>Reach Academy Feltham</h3>
+                <p>
+                  A-levels: Mathematics A* (95%), Further Mathematics A* (91%, self-taught), Physics A. MAT 70,
+                  TMUA 6.5.
+                </p>
+              </article>
             </div>
-          ))}
-        </div>
-
-        <div className="edu rv">
-          <article>
-            <span className="mono">2024 to 2027</span>
-            <h3>London School of Economics</h3>
-            <p>
-              BSc Data Science. Stochastic Processes, Probability and Distribution Theory, Bayesian Inference,
-              Machine Learning, Partial Differential Equations, Algorithms and Data Structures.
-            </p>
-          </article>
-          <article>
-            <span className="mono">2022 to 2024</span>
-            <h3>Reach Academy Feltham</h3>
-            <p>
-              A-levels: Mathematics A* (95%), Further Mathematics A* (91%, self-taught), Physics A. MAT 70, TMUA
-              6.5.
-            </p>
-          </article>
+          </div>
         </div>
 
         <div className="quotes rv">

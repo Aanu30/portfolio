@@ -13,7 +13,7 @@ export const mountPokerReplay: Mount = (root) => {
       <div class="demo-main">
         <div class="pk-head">
           <span class="k">Running total across 36 sessions</span>
-          <div class="acts"><button class="btn pri" data-r="one" type="button">Deal one replay</button><button class="btn" data-r="many" type="button">Deal 1,000</button><button class="btn ghost" data-r="reset" type="button">Reset</button></div>
+          <div class="acts"><button class="btn pri" data-r="one" data-peek="6" type="button">Deal one replay</button><button class="btn" data-r="many" type="button">Deal 1,000</button><button class="btn ghost" data-r="reset" type="button">Reset</button></div>
         </div>
         <div data-r="chart" class="chart"></div>
         <p class="fine">A replay draws 36 nights at random from the ones I actually played, repeats allowed, and adds them up. The amber line is what really happened.</p>

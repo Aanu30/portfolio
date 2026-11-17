@@ -22,7 +22,7 @@ export const mountGhosts: Mount = (root) => {
         <span class="k">Years until half the sentences are gone</span>
         <div class="topics" data-r="topics" role="group" aria-label="Topic"></div>
         <label class="ctl"><span>Time since they were written</span><output data-r="t-o" class="num"></output>
-          <input type="range" data-r="t" min="0" max="10" step="0.1" value="1" aria-label="Years since the sentences were written"></label>
+          <input type="range" data-r="t" data-peek="5" min="0" max="10" step="0.1" value="1" aria-label="Years since the sentences were written"></label>
       </div>
       <div class="demo-main">
         <div class="dots" data-r="dots" aria-hidden="true"></div>

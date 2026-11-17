@@ -101,7 +101,7 @@ function Rail() {
       if (el) observer.observe(el)
     })
     const onScroll = () => {
-      const work = document.getElementById('work')?.getBoundingClientRect()
+      const work = document.getElementById('projects')?.getBoundingClientRect()
       setOn(!!work && work.top < window.innerHeight * 0.5 && work.bottom > window.innerHeight * 0.5)
     }
     onScroll()
@@ -127,12 +127,12 @@ export default function Work() {
   const [showModel, setShowModel] = useState(false)
 
   return (
-    <section id="work">
+    <section id="projects">
       <Rail />
       <div className="wrap">
         <div className="sec-intro rv">
           <span className="mono">
-            <b>01</b> &nbsp;Work
+            <b>04</b> &nbsp;Projects
           </span>
           <h2 className="big">
             Seven things I've built or run. <em>Each one has something you can try.</em>
@@ -142,13 +142,13 @@ export default function Work() {
         <Chapter
           id="spread"
           no="01"
-          meta={['Nov 2026', 'Junction hackathon, Finland', '48 hours']}
+          meta={['Nov 2026', "Junction 2026, Europe's largest hackathon", '48 hours']}
           title="I ran a delivery company for a week."
           sub="I priced it like a market maker."
           plain="Bahn Express set the challenge. Car dealers ask you for a price to move a car, a rival you can't see quotes too, and every job you win needs a freelance driver. Deliver fewer than 90% on time and your week doesn't count. I designed the pricing model and the testing rules, and directed a team of AI coding agents that wrote the code."
           quant="Each request is priced at p* = c / (1 − πr) + P / |P′|: expected cost plus an elasticity markup, with a shadow price μ(u) on driver capacity that is zero below 60% utilisation and pulls the quote at 97%. Acceptance is logistic in log price and learned online with Bayesian shrinkage by dealer, region and day. Every change was tested on paired seeds against a pre-set keep rule of two standard errors."
           stats={[
-            { big: 'Top 11%', text: 'of 228 teams. 170 missed the on-time rule or placed no orders.' },
+            { big: 'Top 10%', text: 'of 228 teams. 170 missed the on-time rule or placed no orders.' },
             { big: '€17,130', text: 'margin in the live final, from 463 cars won' },
             { big: '94.4%', text: 'delivered on time, over 34 minutes unattended with zero faults' },
             { big: '+€2,448', text: 'a week from one finding: 60% of drivers lived outside the 30 km circle in the rules' },
@@ -210,13 +210,13 @@ export default function Work() {
         <Chapter
           id="ghosts"
           no="03"
-          meta={['Nov 2026', 'Junction hackathon, Finland', '3rd place, MariaDB track']}
+          meta={['Nov 2026', "Junction 2026, Europe's largest hackathon", '3rd place, MariaDB track']}
           title="381,459 sentences Wikipedia deleted."
           sub="We brought them back."
           plain="Wikipedia keeps every version of every article but only shows you the latest. For MariaDB's challenge at Junction, our team rebuilt 862,076 versions of 19,742 Finnish history articles and recovered every sentence that was later removed. I led the analysis and the pitch. What we found: contested history gets rewritten far faster. On the 1918 Civil War article, half of what is written is gone within ten months. Across all articles it takes 18 years."
           quant="MariaDB system-versioned tables written with Wikipedia's real revision timestamps, so FOR SYSTEM_TIME AS OF replays any day. Sentence lifetimes come from diffing consecutive revisions, with reverts inside 24 hours filtered out. Kaplan-Meier median survival with live sentences censored (0.8 years against 18.6) and Fightin' Words log-odds on 2,646 deleted against 1,007 surviving sentences. I led the analysis and the pitch; teammates built the app."
           stats={[
-            { big: <>3rd <small>place</small></>, text: "in MariaDB's Wikipedia Through Time challenge, at one of Europe's largest hackathons" },
+            { big: <>3rd <small>place</small></>, text: "in MariaDB's Wikipedia Through Time challenge at Junction 2026, Europe's largest hackathon" },
             { big: '381,459', text: 'deleted sentences recovered from 862,076 versions of 19,742 articles' },
             { big: '23×', text: 'faster rewriting on contested history: a half-life of 0.8 years against 18.6' },
             { big: <>12 <small>of 12</small></>, text: 'language editions of the Winter War article had their busiest month for readers right after Russia invaded Ukraine' },

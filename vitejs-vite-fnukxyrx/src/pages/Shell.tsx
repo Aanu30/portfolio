@@ -22,8 +22,8 @@ export function Page({ title, meta, heading, sub, plain, quant, stats, next, chi
   return (
     <article className="page">
       <div className="wrap">
-        <Link className="back" to="/#work">
-          ← All work
+        <Link className="back" to="/#projects">
+          ← All projects
         </Link>
         <div className="ch-meta mono">
           {meta.map((m, i) => (i === 0 ? <b key={m}>{m}</b> : <span key={m}>{m}</span>))}

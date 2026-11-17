@@ -1,35 +1,68 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import type { Location } from 'react-router-dom'
 import { useLevel } from '../lib/hooks'
 
+// In the order the sections appear on the homepage.
 const LINKS = [
-  ['Work', '/#work'],
-  ['Lessons', '/#lessons'],
-  ['Experience', '/#experience'],
-  ['Scoreboard', '/#scoreboard'],
   ['About', '/#about'],
+  ['Achievements', '/#achievements'],
+  ['Experience', '/#experience'],
+  ['Projects', '/#projects'],
+  ['Lessons', '/#lessons'],
   ['Contact', '/#contact'],
 ] as const
 
 export default function Nav() {
   const [level, setLevel] = useLevel()
   const [scrolled, setScrolled] = useState(false)
+  // The homepage section being read, so its link can be marked.
+  const [reading, setReading] = useState<string | null>(null)
+  const progress = useRef<HTMLSpanElement>(null)
   const location = useLocation()
+  const onHome = location.pathname === '/'
   // The phone menu remembers where it was opened and counts as open only while you are still
   // there, so it closes whenever the page or section changes.
   const [openedAt, setOpenedAt] = useState<Location | null>(null)
   const open = openedAt === location
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    let queued = 0
+    const update = () => {
+      queued = 0
+      setScrolled(window.scrollY > 24)
+      // The bar across the top grows with how far down the page you are.
+      const distance = document.documentElement.scrollHeight - window.innerHeight
+      const done = distance > 0 ? Math.min(1, window.scrollY / distance) : 0
+      if (progress.current) progress.current.style.transform = `scaleX(${done.toFixed(4)})`
+      // The last section whose top has passed the upper third of the screen is the one being read.
+      let current: string | null = null
+      if (onHome) {
+        for (const [, to] of LINKS) {
+          const section = document.getElementById(to.slice(2))
+          if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.35) current = to
+        }
+        // At the very bottom the last section may be too short to reach that line.
+        if (distance > 0 && window.scrollY >= distance - 2) current = LINKS[LINKS.length - 1][1]
+      }
+      setReading(current)
+    }
+    const onScroll = () => {
+      if (!queued) queued = requestAnimationFrame(update)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(queued)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [onHome])
 
   return (
     <header className={'nav' + (scrolled || open ? ' scrolled' : '')}>
+      <span className="progress" ref={progress} aria-hidden="true" />
       <div className="wrap">
         <Link className="brand" to="/" aria-label="Aarin Bhatt, home">
           <i aria-hidden="true">
@@ -40,7 +73,12 @@ export default function Nav() {
         </Link>
         <nav className={open ? 'open' : ''} aria-label="Sections">
           {LINKS.map(([label, to]) => (
-            <Link key={to} to={to}>
+            <Link
+              key={to}
+              to={to}
+              className={reading === to ? 'on' : undefined}
+              aria-current={reading === to ? 'location' : undefined}
+            >
               {label}
             </Link>
           ))}

@@ -44,13 +44,13 @@ export default function SpreadPage() {
   return (
     <Page
       title="Spread: pricing car deliveries like a market maker"
-      meta={['01', 'Nov 2026', 'Junction hackathon, Espoo, Finland', 'Bahn Express Spread challenge']}
+      meta={['01', 'Nov 2026', "Junction 2026, Europe's largest hackathon", 'Bahn Express Spread challenge']}
       heading="I ran a delivery company for a week."
       sub="I priced it like a market maker."
       plain="Bahn Express set the challenge. Car dealers ask you for a price to move a car, a rival you can't see quotes too, and every job you win needs a freelance driver. Deliver fewer than 90% on time and your week doesn't count. I designed the pricing model and the testing rules, and directed a team of AI coding agents that wrote the code."
       quant="Each request is priced at p* = c / (1 − πr) + P / |P′|: expected cost plus an elasticity markup, with a shadow price μ(u) on driver capacity that is zero below 60% utilisation and pulls the quote at 97%. Acceptance is logistic in log price and learned online with Bayesian shrinkage by dealer, region and day. Every change was tested on paired seeds against a pre-set keep rule of two standard errors."
       stats={[
-        { big: 'Top 11%', text: 'of 228 teams. 170 missed the on-time rule or placed no orders.' },
+        { big: 'Top 10%', text: 'of 228 teams. 170 missed the on-time rule or placed no orders.' },
         { big: '€17,130', text: 'margin in the live final, from 463 cars won' },
         { big: '94.4%', text: 'delivered on time, over 34 minutes unattended with zero faults' },
         { big: '130+', text: 'simulated practice weeks played to test ideas, most of which were rejected' },
@@ -230,7 +230,7 @@ export default function SpreadPage() {
           €1,062 in late refunds.
         </p>
         <p>
-          That placed us in the top 11% of 228 teams. For scale, tenth place made €19,084 and first place €22,931.
+          That placed us in the top 10% of 228 teams. For scale, tenth place made €19,084 and first place €22,931.
         </p>
       </Section>
 

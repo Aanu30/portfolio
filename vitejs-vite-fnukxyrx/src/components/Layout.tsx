@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { useReveal } from '../lib/hooks'
+import { trackPointerGlow } from '../lib/motion'
+import Backdrop from './Backdrop'
 import Nav from './Nav'
+
+// Two homepage sections were renamed. Links that still use the old names land on the new ones.
+const RENAMED: Record<string, string> = { work: 'projects', scoreboard: 'achievements' }
 
 export default function Layout() {
   const { pathname, hash } = useLocation()
@@ -12,16 +17,19 @@ export default function Layout() {
       window.scrollTo({ top: 0, behavior: 'instant' })
       return
     }
-    const go = () => document.getElementById(hash.slice(1))?.scrollIntoView()
+    const id = hash.slice(1)
+    const go = () => document.getElementById(RENAMED[id] ?? id)?.scrollIntoView()
     go()
     const timer = window.setTimeout(go, 150)
     return () => window.clearTimeout(timer)
   }, [pathname, hash])
 
   useReveal(pathname)
+  useEffect(() => trackPointerGlow(), [])
 
   return (
     <>
+      <Backdrop />
       <Nav />
       <main>
         <Outlet />

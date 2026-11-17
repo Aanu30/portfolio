@@ -5,6 +5,7 @@ import { clamp, gauss, reducedMotion } from '../lib/dom'
 
 type Path = { ys: number[]; finish: number; done: boolean; progress: number }
 type Geometry = { x0: number; x1: number; y0: number; sd: number; wide: boolean }
+type Box = { left: number; right: number; top: number; bottom: number }
 
 const PATHS = 150
 const STEPS = 80
@@ -15,7 +16,11 @@ const FADE_MS = 900
 const AMBER = '#F0B23E'
 const LABEL_FONT = '10.5px "Geist Mono Variable", ui-monospace, Menlo, monospace'
 
-export function mountFan(canvas: HTMLCanvasElement, hero: HTMLElement) {
+/**
+ * Draws the fan behind the opening section. `copy` is the block of text it must stay clear of
+ * and `photo` is the portrait it runs behind.
+ */
+export function mountFan(canvas: HTMLCanvasElement, hero: HTMLElement, copy: HTMLElement, photo: HTMLElement) {
   const ctx = canvas.getContext('2d')
   if (!ctx) return { stop() {}, restart() {} }
   const still = reducedMotion()
@@ -23,6 +28,8 @@ export function mountFan(canvas: HTMLCanvasElement, hero: HTMLElement) {
   let W = 0
   let H = 0
   let geo: Geometry = { x0: 0, x1: 0, y0: 0, sd: 1, wide: true }
+  // Where the portrait sits, so a label is never drawn half hidden behind it.
+  let covered: Box = { left: 0, right: 0, top: 0, bottom: 0 }
   let paths: Path[] = []
   let bins: number[] = []
   let shown: number[] = []
@@ -42,10 +49,16 @@ export function mountFan(canvas: HTMLCanvasElement, hero: HTMLElement) {
     canvas.style.width = W + 'px'
     canvas.style.height = H + 'px'
     ctx!.setTransform(dpr, 0, 0, dpr, 0, 0)
-    geo =
-      W > 1040
-        ? { x0: W * 0.5, x1: W - 84, y0: H * 0.5, sd: H * 0.15, wide: true }
-        : { x0: W * 0.07, x1: W - 46, y0: H - 122, sd: 38, wide: false }
+    if (W > 1040) {
+      // Wide screens: the fan opens just right of the text and passes behind the portrait.
+      const textEnd = copy.getBoundingClientRect().right - r.left
+      const p = photo.getBoundingClientRect()
+      geo = { x0: textEnd + 60, x1: W - 84, y0: H * 0.5, sd: H * 0.15, wide: true }
+      covered = { left: p.left - r.left, right: p.right - r.left, top: p.top - r.top, bottom: p.bottom - r.top }
+    } else {
+      // Narrow screens: a small fan along the bottom, under the text.
+      geo = { x0: W * 0.07, x1: W - 46, y0: H - 122, sd: 38, wide: false }
+    }
   }
 
   function deal() {
@@ -197,11 +210,15 @@ export function mountFan(canvas: HTMLCanvasElement, hero: HTMLElement) {
         const width = c.measureText(text).width
         const x = head[0] - 20 - width
         const y = head[1] - 28
-        c.fillStyle = 'rgba(8,9,11,.84)'
-        pill(x - 9, y - 10, width + 18, 20, 10)
-        c.fillStyle = 'rgba(240,178,62,.98)'
-        c.textAlign = 'left'
-        c.fillText(text, x, y + 0.5)
+        const behindPhoto =
+          x - 9 < covered.right + 8 && x + width + 9 > covered.left && y + 10 > covered.top && y - 10 < covered.bottom
+        if (!behindPhoto) {
+          c.fillStyle = 'rgba(8,9,11,.84)'
+          pill(x - 9, y - 10, width + 18, 20, 10)
+          c.fillStyle = 'rgba(240,178,62,.98)'
+          c.textAlign = 'left'
+          c.fillText(text, x, y + 0.5)
+        }
       }
     }
 

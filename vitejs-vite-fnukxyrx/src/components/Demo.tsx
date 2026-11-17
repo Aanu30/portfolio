@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { peekOnFirstSight } from '../lib/motion'
 
 /** A demo draws itself into `root` and returns a function that tidies up. */
 export type Mount = (root: HTMLElement) => () => void
@@ -33,7 +34,9 @@ export default function Demo({ title, note, mount, id }: Props) {
     const el = body.current
     if (!el) return
     const stop = mount(el)
+    const stopPeek = peekOnFirstSight(el)
     return () => {
+      stopPeek()
       stop()
       el.replaceChildren()
     }

@@ -25,7 +25,7 @@ export const mountDealer: Mount = (root) => {
           <button data-mode="pen" aria-pressed="false" type="button">Textbook: gradual</button>
         </div>
         <label class="ctl"><span>Stock already held</span><output data-r="out" class="num"></output>
-          <input type="range" data-r="q" min="0" max="0.995" step="0.005" value="0.3" aria-label="Stock held as a share of the limit"></label>
+          <input type="range" data-r="q" data-peek="0.93" min="0" max="0.995" step="0.005" value="0.3" aria-label="Stock held as a share of the limit"></label>
         <div data-r="ladder" class="ladder"></div>
       </div>
       <div class="demo-main">

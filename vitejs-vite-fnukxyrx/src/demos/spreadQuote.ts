@@ -35,7 +35,7 @@ export const mountSpreadQuote: Mount = (root) => {
       <div class="demo-side">
         <p class="scenario"><b>A dealer wants a car moved from Vantaa to Helsinki, next day.</b> The list price is €26.00 and a driver will cost you about €18.27. A rival is quoting too, and you can't see their price.</p>
         <label class="ctl"><span>Your price</span><output data-r="price-o" class="num"></output>
-          <input type="range" data-r="price" min="19" max="42" step="0.1" value="22" aria-label="Your price in euros"></label>
+          <input type="range" data-r="price" data-peek="31" min="19" max="42" step="0.1" value="22" aria-label="Your price in euros"></label>
         <label class="ctl"><span>Local drivers already booked</span><output data-r="u-o" class="num"></output>
           <input type="range" data-r="u" min="0" max="0.94" step="0.01" value="0.2" aria-label="Share of local drivers already booked"></label>
         <div class="mini"><svg data-r="mini" viewBox="0 0 118 46" aria-hidden="true"></svg><span>The best price as drivers run out: flat, then steep.</span></div>
