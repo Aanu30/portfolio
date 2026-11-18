@@ -387,6 +387,16 @@ input[type='range']::-moz-range-thumb { width: 10px; height: 10px; border-radius
 .contact h2 em { color: var(--accent); }
 .contact p { color: var(--ink-2); margin: 24px auto 0; max-width: 30em; font-size: 18px; }
 .contact .cta { justify-content: center; }
+
+/* A "scene": a section with a photo filling the space behind its words. The photo sits to the
+   right, fades out towards the words on the left, and melts into the page above and below. */
+.scene { position: relative; isolation: isolate; overflow: hidden; }
+.scene-photo { position: absolute; top: 0; right: 0; width: min(70%, 1100px); height: 100%; object-fit: cover; object-position: 50% 26%; z-index: -2; filter: saturate(0.85) brightness(0.74); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 44%); mask-image: linear-gradient(90deg, transparent 0%, #000 44%); animation: scene-drift 26s ease-in-out infinite alternate; }
+.scene::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(8, 9, 11, 0.72) 0%, rgba(8, 9, 11, 0.35) 50%, rgba(8, 9, 11, 0) 76%), linear-gradient(180deg, var(--bg) 0%, rgba(8, 9, 11, 0) 22%, rgba(8, 9, 11, 0) 74%, var(--bg) 100%); }
+.contact.scene { text-align: left; border-top: 0; }
+.contact.scene p { margin-left: 0; max-width: 27em; }
+.contact.scene .cta { justify-content: flex-start; }
+@keyframes scene-drift { to { transform: scale(1.07) translateX(-1.2%); } }
 footer.site { border-top: 1px solid var(--line); padding: 22px 0 34px; font-size: 13px; color: var(--ink-3); }
 footer.site .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -589,6 +599,11 @@ footer.site .wrap { display: flex; justify-content: space-between; gap: 16px; fl
   .nav nav.open { display: flex; }
   .nav nav a { padding: 13px 0; border-top: 1px solid var(--line); color: var(--ink); }
   .nav nav a::after { display: none; }
+  .scene-photo { inset: 0 0 auto 0; width: 100%; height: clamp(300px, 52vw, 460px); object-position: 58% 22%; -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 100%); mask-image: linear-gradient(180deg, #000 50%, transparent 100%); }
+  .scene::before { background: linear-gradient(180deg, var(--bg) 0%, rgba(8, 9, 11, 0) 12%, rgba(8, 9, 11, 0) 100%); }
+  .contact.scene { padding-top: clamp(270px, 46vw, 420px); text-align: center; }
+  .contact.scene p { margin-inline: auto; max-width: 30em; }
+  .contact.scene .cta { justify-content: center; }
   .nav nav a.on { color: var(--accent); }
   .menu-btn { display: inline-flex; }
   .hero { align-items: flex-start; padding-bottom: 230px; }

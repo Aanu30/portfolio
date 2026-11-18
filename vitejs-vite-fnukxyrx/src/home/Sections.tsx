@@ -427,7 +427,9 @@ export function Contact() {
     else done()
   }
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact scene">
+      {/* A photo fills the space behind the words. It is decoration, so screen readers skip it. */}
+      <img className="scene-photo" src="/scene-talk.jpg" alt="" width="1418" height="1066" loading="lazy" />
       <div className="wrap rv">
         <span className="mono">
           <b>06</b> &nbsp;Contact
