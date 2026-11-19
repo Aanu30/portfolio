@@ -197,13 +197,6 @@ export function Experience() {
 const JUNCTION = [
   {
     label: 'First challenge',
-    big: 'Top 10%',
-    name: 'Bahn Express Spread challenge',
-    text: 'A simulated car-delivery company to run for a week. I designed the pricing model and priced it like a market maker.',
-    href: '#spread',
-  },
-  {
-    label: 'Second challenge',
     big: (
       <>
         3rd <small>place</small>
@@ -212,6 +205,13 @@ const JUNCTION = [
     name: "MariaDB's Wikipedia Through Time challenge",
     text: 'Our team brought back 381,459 sentences that Wikipedia had deleted. I led the analysis and the pitch.',
     href: '#ghosts',
+  },
+  {
+    label: 'Second challenge',
+    big: 'Top 10%',
+    name: 'Bahn Express Spread challenge',
+    text: 'A simulated car-delivery company to run for a week. I designed the pricing model and priced it like a market maker.',
+    href: '#spread',
   },
 ]
 
@@ -234,7 +234,7 @@ const TIMELINE: { year: string; items: string[]; now?: boolean }[] = [
   { year: '2023', items: ['Data science internship at BP', 'UKMT Gold, then Senior Kangaroo Merit', 'Royal Institution talk on AI'] },
   { year: '2024', items: ['A* A* A, Further Maths self-taught', 'BlackRock: 1st of 8 in a Bloomberg simulation', 'Started Data Science at LSE'] },
   { year: '2025', items: ['Cazenove: 1st in a trading simulation', 'First poker final table', 'Head of Sewa, LSE Hindu Society'] },
-  { year: '2026', now: true, items: ['IMC Prosperity: top 5%', 'Exactimo, then London Strategic Edge', 'Estimathon: 1st of 100+', 'Junction: top 10% in one challenge, 3rd place in another'] },
+  { year: '2026', now: true, items: ['IMC Prosperity: top 5%', 'Exactimo, then London Strategic Edge', 'Estimathon: 1st of 100+', 'Junction: 3rd place in one challenge, top 10% in another'] },
   { year: '2027', items: ['Graduating from LSE', 'Open to internships and graduate roles'] },
 ]
 
